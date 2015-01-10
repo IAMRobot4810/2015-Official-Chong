@@ -1,0 +1,32 @@
+18:38:28 **** Rebuild of configuration Debug for project Joystick Work ****
+Info: Internal Builder is used for build
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800311/wpilib/cpp/current/include" "-IC:\\Users\\1750800311\\Documents\\workspaces\\c++\\robot_fo_realsies\\Joystick Work\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "src\\Robot.o" "..\\src\\Robot.cpp" 
+arm-frc-linux-gnueabi-g++ "-LC:\\Users\\1750800311/wpilib/cpp/current/lib" -Wl,-rpath,/opt/GenICam_v2_3/bin/Linux_armv7-a -o FRCUserProgram "src\\Robot.o" -lwpi 
+c:/frc/bin/../lib/gcc/arm-frc-linux-gnueabi/4.9.1/../../../../arm-frc-linux-gnueabi/bin/ld.exe: warning: libstdc++.so.6, needed by C:\Users\1750800311/wpilib/cpp/current/lib\libFRC_NetworkCommunication.so.1.5.0, not found (try using -rpath or -rpath-link)
+Info: Nothing to build for Joystick Work
+Info: Nothing to build for 2015 Official
+18:45:37 **** Incremental Build of configuration Debug for project Joystick Work ****
+Info: Internal Builder is used for build
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800311/wpilib/cpp/current/include" "-IC:\\Users\\1750800311\\Documents\\workspaces\\c++\\robot_fo_realsies\\Joystick Work\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "src\\Robot.o" "..\\src\\Robot.cpp" 
+arm-frc-linux-gnueabi-g++ "-LC:\\Users\\1750800311/wpilib/cpp/current/lib" -Wl,-rpath,/opt/GenICam_v2_3/bin/Linux_armv7-a -o FRCUserProgram "src\\Robot.o" -lwpi 
+c:/frc/bin/../lib/gcc/arm-frc-linux-gnueabi/4.9.1/../../../../arm-frc-linux-gnueabi/bin/ld.exe: warning: libstdc++.so.6, needed by C:\Users\1750800311/wpilib/cpp/current/lib\libFRC_NetworkCommunication.so.1.5.0, not found (try using -rpath or -rpath-link)
+Info: Nothing to build for Joystick Work
+18:53:52 **** Rebuild of configuration Debug for project 2015 Official ****
+Info: Internal Builder is used for build
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800311/wpilib/cpp/current/include" "-IC:\\Users\\1750800311\\Documents\\workspaces\\c++\\robot_fo_realsies\\2015 Official\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "src\\Robot.o" "..\\src\\Robot.cpp" 
+..\src\Robot.cpp: In member function 'virtual void Robot::TeleopPeriodic()':
+..\src\Robot.cpp:171:10: warning: unused variable 'n_count' [-Wunused-variable]
+   double n_count = static_cast<double>(count);
+          ^
+..\src\Robot.cpp:175:40: warning: 'n_count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+  dash->PutNumber("Enco Count", n_count);
+                                        ^
+arm-frc-linux-gnueabi-g++ "-LC:\\Users\\1750800311/wpilib/cpp/current/lib" -Wl,-rpath,/opt/GenICam_v2_3/bin/Linux_armv7-a -o FRCUserProgram "src\\Robot.o" -lwpi 
+c:/frc/bin/../lib/gcc/arm-frc-linux-gnueabi/4.9.1/../../../../arm-frc-linux-gnueabi/bin/ld.exe: warning: libstdc++.so.6, needed by C:\Users\1750800311/wpilib/cpp/current/lib\libFRC_NetworkCommunication.so.1.5.0, not found (try using -rpath or -rpath-link)
+18:54:03 **** Incremental Build of configuration Debug for project Joystick Work ****
+Info: Internal Builder is used for build
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800311/wpilib/cpp/current/include" "-IC:\\Users\\1750800311\\Documents\\workspaces\\c++\\robot_fo_realsies\\Joystick Work\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "src\\Robot.o" "..\\src\\Robot.cpp" 
+arm-frc-linux-gnueabi-g++ "-LC:\\Users\\1750800311/wpilib/cpp/current/lib" -Wl,-rpath,/opt/GenICam_v2_3/bin/Linux_armv7-a -o FRCUserProgram "src\\Robot.o" -lwpi 
+c:/frc/bin/../lib/gcc/arm-frc-linux-gnueabi/4.9.1/../../../../arm-frc-linux-gnueabi/bin/ld.exe: warning: libstdc++.so.6, needed by C:\Users\1750800311/wpilib/cpp/current/lib\libFRC_NetworkCommunication.so.1.5.0, not found (try using -rpath or -rpath-link)
+Info: Nothing to build for 2015 Official
+Info: Nothing to build for Joystick Work
