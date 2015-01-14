@@ -1,5 +1,0 @@
-17:19:52 **** Clean-only build of configuration Debug for project Arcade Drive ****
-rm -rf FRCUserProgram src/Robot.d src/Robot.o 
-
-17:19:52 Build Finished (took 141ms)
-
