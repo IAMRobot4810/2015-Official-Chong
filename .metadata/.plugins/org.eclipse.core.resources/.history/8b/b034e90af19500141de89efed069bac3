@@ -1,0 +1,62 @@
+#include "WPILib.h"
+#include "C:\Users\1750800404\wpilib\cpp\current\include\Buttons\JoystickButton.h"
+#include "C:\Users\1750800404\wpilib\cpp\current\include\SmartDashboard\SmartDashboard.h"
+
+class Robot: public IterativeRobot
+{
+
+public:
+
+	SmartDashboard *dash;
+	Joystick *stickOne;
+	Joystick *stickTwo;
+
+
+	Robot(){
+
+		stickOne = new Joystick(0);
+		stickTwo = new Joystick(1);
+
+	}
+
+	~Robot(){
+		delete stickOne;
+		delete stickTwo;
+	}
+
+private:
+	LiveWindow *lw;
+
+	void RobotInit()
+	{
+		lw = LiveWindow::GetInstance();
+	}
+
+	void AutonomousInit()
+	{
+
+	}
+
+	void AutonomousPeriodic()
+	{
+
+	}
+
+	void TeleopInit()
+	{
+
+	}
+
+	void TeleopPeriodic()
+	{
+
+		//drive->TankDrive(stickOne, stickTwo);
+	}
+
+	void TestPeriodic()
+	{
+		lw->Run();
+	}
+};
+
+START_ROBOT_CLASS(Robot);

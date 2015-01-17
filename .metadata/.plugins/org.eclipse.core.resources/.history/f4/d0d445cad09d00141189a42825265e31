@@ -1,0 +1,76 @@
+#include "WPILib.h"
+//#include "DriveSystem.h"
+//#include "C:\Users\1750800404\wpilib\cpp\current\include\Buttons\JoystickButton.h"
+//#include "C:\Users\1750800404\wpilib\cpp\current\include\SmartDashboard\SmartDashboard.h"
+
+class Robot: public IterativeRobot
+{
+
+public:
+
+	//DriveSystem *driveBro;
+
+	Joystick *stick;
+	Talon *talZero;
+	Talon *talOne;
+	Talon *talTwo;
+	Talon *talThree;
+	RobotDrive *robo;
+
+
+	Robot(){
+
+		//driveBro = new DriveSystem();
+		stick = new Joystick(0);
+		talZero = new Talon(0);
+		talOne = new Talon(1);
+		talTwo = new Talon(2);
+		talThree = new Talon(3);
+		robo = new RobotDrive(talThree, talTwo, talOne, talZero);
+
+
+	}
+
+	~Robot(){
+
+		//delete driveBro;
+
+	}
+
+private:
+	LiveWindow *lw;
+
+	void RobotInit()
+	{
+		lw = LiveWindow::GetInstance();
+	}
+
+	void AutonomousInit()
+	{
+
+	}
+
+	void AutonomousPeriodic()
+	{
+
+	}
+
+	void TeleopInit()
+	{
+
+	}
+
+	void TeleopPeriodic()
+	{
+
+
+
+	}
+
+	void TestPeriodic()
+	{
+		lw->Run();
+	}
+};
+
+START_ROBOT_CLASS(Robot);

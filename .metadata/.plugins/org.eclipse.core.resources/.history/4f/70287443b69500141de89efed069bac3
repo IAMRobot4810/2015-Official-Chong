@@ -1,0 +1,14 @@
+#ifndef DRIVESYSTEM_H
+#define DRIVESYSTEM_H
+
+#include "WPILib.h"
+
+class DriveSystem{
+
+public:
+private:
+protected:
+
+};
+
+#endif

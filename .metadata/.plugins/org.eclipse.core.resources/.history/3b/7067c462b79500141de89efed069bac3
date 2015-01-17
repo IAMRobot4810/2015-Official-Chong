@@ -1,0 +1,22 @@
+#ifndef DRIVESYSTEM_H
+#define DRIVESYSTEM_H
+
+#include "WPILib.h"
+
+class DriveSystem{
+
+public:
+
+	DriveSystem();
+	~DriveSystem();
+
+	Talon *talZero;
+	Talon *talTwo;
+	RobotDrive *drive;
+
+private:
+protected:
+
+};
+
+#endif

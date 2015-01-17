@@ -1,0 +1,264 @@
+17:09:37 **** Rebuild of configuration Debug for project Basic Drive ****
+Info: Internal Builder is used for build
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800404/wpilib/cpp/current/include" "-IC:\\Users\\1750800404\\workspace\\Basic Drive\\src" -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Robot.o" "..\\src\\Robot.cpp" 
+In file included from c:\frc\arm-frc-linux-gnueabi\include\c++\4.9.1\thread:35:0,
+                 from C:\Users\1750800404/wpilib/cpp/current/include/CameraServer.h:14,
+                 from C:\Users\1750800404/wpilib/cpp/current/include/WPILib.h:25,
+                 from ..\src\Robot.cpp:1:
+c:\frc\arm-frc-linux-gnueabi\include\c++\4.9.1\bits\c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support is currently experimental, and must be enabled with the -std=c++11 or -std=gnu++11 compiler options.
+ #error This file requires compiler and library support for the \
+  ^
+In file included from C:\Users\1750800404/wpilib/cpp/current/include/WPILib.h:25:0,
+                 from ..\src\Robot.cpp:1:
+C:\Users\1750800404/wpilib/cpp/current/include/CameraServer.h:23:44: error: a brace-enclosed initializer is not allowed here before '{' token
+  static constexpr uint8_t kMagicNumber[] = { 0x01, 0x00, 0x00, 0x00 };
+                                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CameraServer.h:23:69: error: invalid in-class initialization of static data member of non-integral type 'const uint8_t [] {aka const unsigned char []}'
+  static constexpr uint8_t kMagicNumber[] = { 0x01, 0x00, 0x00, 0x00 };
+                                                                     ^
+C:\Users\1750800404/wpilib/cpp/current/include/CameraServer.h:28:24: error: duplicate 'const'
+  static constexpr char const *kDefaultCameraName = "cam0";
+                        ^
+C:\Users\1750800404/wpilib/cpp/current/include/CameraServer.h:28:52: error: invalid in-class initialization of static data member of non-integral type 'const char*'
+  static constexpr char const *kDefaultCameraName = "cam0";
+                                                    ^
+C:\Users\1750800404/wpilib/cpp/current/include/CameraServer.h:44:7: error: 'thread' in namespace 'std' does not name a type
+  std::thread m_serverThread;
+       ^
+C:\Users\1750800404/wpilib/cpp/current/include/CameraServer.h:45:7: error: 'recursive_mutex' in namespace 'std' does not name a type
+  std::recursive_mutex m_imageMutex;
+       ^
+C:\Users\1750800404/wpilib/cpp/current/include/CameraServer.h:46:7: error: 'condition_variable_any' in namespace 'std' does not name a type
+  std::condition_variable_any m_newImageReady;
+       ^
+In file included from C:\Users\1750800404/wpilib/cpp/current/include/WPILib.h:26:0,
+                 from ..\src\Robot.cpp:1:
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:79:20: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float Get() override;
+                    ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:80:51: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void Set(float value, uint8_t syncGroup=0) override;
+                                                   ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:81:23: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void Disable() override;
+                       ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:82:28: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetP(double p) override;
+                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:83:28: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetI(double i) override;
+                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:84:28: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetD(double d) override;
+                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:85:50: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetPID(double p, double i, double d) override;
+                                                  ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:86:22: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetP() override;
+                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:87:22: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetI() override;
+                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:88:22: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetD() override;
+                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:89:30: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetBusVoltage() override;
+                              ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:90:33: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetOutputVoltage() override;
+                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:91:33: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetOutputCurrent() override;
+                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:92:31: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetTemperature() override;
+                               ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:93:29: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetPosition() override;
+                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:94:26: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetSpeed() override;
+                          ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:95:33: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual bool GetForwardLimitOK() override;
+                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:96:33: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual bool GetReverseLimitOK() override;
+                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:97:29: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual uint16_t GetFaults() override;
+                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:98:49: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetVoltageRampRate(double rampRate) override;
+                                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:99:38: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual uint32_t GetFirmwareVersion() override;
+                                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:100:49: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigNeutralMode(NeutralMode mode) override;
+                                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:101:60: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigEncoderCodesPerRev(uint16_t codesPerRev) override;
+                                                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:102:54: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigPotentiometerTurns(uint16_t turns) override;
+                                                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:103:96: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigSoftPositionLimits(double forwardLimitPosition, double reverseLimitPosition) override;
+                                                                                                ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:104:41: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void DisableSoftPositionLimits() override;
+                                         ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:105:45: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigLimitMode(LimitMode mode) override;
+                                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:106:61: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigForwardLimit(double forwardLimitPosition) override;
+                                                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:107:61: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigReverseLimit(double reverseLimitPosition) override;
+                                                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:108:52: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigMaxOutputVoltage(double voltage) override;
+                                                    ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANJaguar.h:109:46: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigFaultTime(float faultTime) override;
+                                              ^
+In file included from C:\Users\1750800404/wpilib/cpp/current/include/WPILib.h:27:0,
+                 from ..\src\Robot.cpp:1:
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:41:36: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void PIDWrite(float output) override;
+                                    ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:44:42: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetExpiration(float timeout) override;
+                                          ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:45:30: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetExpiration() override;
+                              ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:46:23: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual bool IsAlive() override;
+                       ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:47:25: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void StopMotor() override;
+                         ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:48:44: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetSafetyEnabled(bool enabled) override;
+                                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:49:31: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual bool IsSafetyEnabled() override;
+                               ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:50:40: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void GetDescription(char *desc) override;
+                                        ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:53:20: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float Get() override;
+                    ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:54:51: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void Set(float value, uint8_t syncGroup=0) override;
+                                                   ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:55:23: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void Disable() override;
+                       ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:57:28: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetP(double p) override;
+                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:58:28: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetI(double i) override;
+                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:59:28: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetD(double d) override;
+                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:62:50: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetPID(double p, double i, double d) override;
+                                                  ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:64:22: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetP() override;
+                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:65:22: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetI() override;
+                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:66:22: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetD() override;
+                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:68:30: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetBusVoltage() override;
+                              ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:69:33: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetOutputVoltage() override;
+                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:70:33: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetOutputCurrent() override;
+                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:71:31: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual float GetTemperature() override;
+                               ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:73:29: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetPosition() override;
+                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:74:26: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual double GetSpeed() override;
+                          ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:88:33: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual bool GetForwardLimitOK() override;
+                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:89:33: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual bool GetReverseLimitOK() override;
+                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:90:29: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual uint16_t GetFaults() override;
+                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:93:49: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void SetVoltageRampRate(double rampRate) override;
+                                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:94:38: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual uint32_t GetFirmwareVersion() override;
+                                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:95:49: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigNeutralMode(NeutralMode mode) override;
+                                                 ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:96:60: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigEncoderCodesPerRev(uint16_t codesPerRev) override;
+                                                            ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:97:54: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigPotentiometerTurns(uint16_t turns) override;
+                                                      ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:98:96: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigSoftPositionLimits(double forwardLimitPosition, double reverseLimitPosition) override;
+                                                                                                ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:99:41: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void DisableSoftPositionLimits() override;
+                                         ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:100:45: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigLimitMode(LimitMode mode) override;
+                                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:101:61: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigForwardLimit(double forwardLimitPosition) override;
+                                                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:102:61: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigReverseLimit(double reverseLimitPosition) override;
+                                                             ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:125:52: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigMaxOutputVoltage(double voltage) override;
+                                                    ^
+C:\Users\1750800404/wpilib/cpp/current/include/CANTalon.h:126:46: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11
+  virtual void ConfigFaultTime(float faultTime) override;
+                                              ^
+In file included from C:\Users\1750800404/wpilib/cpp/current/include/WPILib.h:88:0,
+                 from ..\src\Robot.cpp:1:
+C:\Users\1750800404/wpilib/cpp/current/include/Vision/AxisCamera.h:96:7: error: 'thread' in namespace 'std' does not name a type
+  std::thread m_captureThread;
+       ^
+C:\Users\1750800404/wpilib/cpp/current/include/Vision/AxisCamera.h:99:7: error: 'mutex' in namespace 'std' does not name a type
+  std::mutex m_captureMutex;
+       ^
+C:\Users\1750800404/wpilib/cpp/current/include/Vision/AxisCamera.h:101:7: error: 'mutex' in namespace 'std' does not name a type
+  std::mutex m_imageDataMutex;
+       ^
+C:\Users\1750800404/wpilib/cpp/current/include/Vision/AxisCamera.h:116:7: error: 'mutex' in namespace 'std' does not name a type
+  std::mutex m_parametersMutex;
+       ^
+
+17:09:39 Build Finished (took 1s.807ms)
+
