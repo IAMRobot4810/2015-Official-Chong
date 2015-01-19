@@ -1,0 +1,21 @@
+Antonio's note for us on the 9th of January of the year 2015
+Antonios Meldung für uns am 9. Januar 2015 
+
+
+
+-Float out values from controller prior to feeding data to motor controllers
+
+-Map buttons 7-12 to the different levels of the field and move arms accordingly (mapped = done
+actual arms are for when we get them*)***
+
+-Map the rotator button** to move the level of the arms i.e fine tune the placement
+
+-Map trigger to go to level 0 (bottommost level)
+
+
+*I, Alex Phan, do solemnly promise not to break the arm again
+**rotator button got switched to the analog thing on the joystick
+***We are using the logitech controller, same as last year
+
+
+
