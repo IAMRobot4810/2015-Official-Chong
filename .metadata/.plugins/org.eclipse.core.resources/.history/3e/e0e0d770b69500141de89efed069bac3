@@ -1,7 +1,0 @@
-#include "DriveSystem.h"
-
-DriveSystem::DriveSystem(){
-	talZero = new Talon(0);
-	talTwo = new Talon(2);
-	drive = new RobotDrive(talZero, talTwo);
-}

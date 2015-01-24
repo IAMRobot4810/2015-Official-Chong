@@ -1,7 +1,7 @@
 #include "WPILib.h"
 #include "DriveSystem.h"
-//#include "C:\Users\1750800404\wpilib\cpp\current\include\Buttons\JoystickButton.h"
-//#include "C:\Users\1750800404\wpilib\cpp\current\include\SmartDashboard\SmartDashboard.h"
+#include <string>
+#include <iostream>
 
 class Robot: public IterativeRobot
 {
@@ -9,74 +9,74 @@ class Robot: public IterativeRobot
 public:
 
 	DriveSystem *driveBro;
-
-	/*Joystick *stick;
-	Talon *talZero;
-	Talon *talOne;
-	Talon *talTwo;
-	Talon *talThree;
-	RobotDrive *robo;
-	JoystickButton *jButton;*/
+	AnalogInput *uSIn;
+	AnalogInput *uSInTwo;
 
 
 	Robot(){
 
 		driveBro = new DriveSystem();
-		/*stick = new Joystick(0);
-		talZero = new Talon(0);
-		talOne = new Talon(1);
-		talTwo = new Talon(2);
-		talThree = new Talon(3);
-		robo = new RobotDrive(talTwo, talThree, talOne, talZero);
-		jButton = new JoystickButton(stick, 1);*/
-
+		uSIn = new AnalogInput(1);
+		uSInTwo = new AnalogInput(2);
 
 	}
 
 	~Robot(){
 
 		delete driveBro;
+		delete uSIn;
+		delete uSInTwo
 
 	}
 
 private:
+
 	LiveWindow *lw;
+	double uSVolt;
+	double uSVoltTwo;
+	double uSInch;
+	double uSInchTwo;
 
-	void RobotInit()
-	{
+	void RobotInit(){
+
 		lw = LiveWindow::GetInstance();
-		/*robo->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
-		robo->SetInvertedMotor(RobotDrive::kRearRightMotor, true);*/
-	}
-
-	void AutonomousInit()
-	{
 
 	}
 
-	void AutonomousPeriodic()
-	{
+	void AutonomousInit(){
 
 	}
 
-	void TeleopInit()
-	{
+	void AutonomousPeriodic(){
 
 	}
 
-	void TeleopPeriodic()
-	{
-
-		/*robo->MecanumDrive_Cartesian(stick->GetX(), stick->GetY(), stick->GetZ());
-		stick->get*/
-		driveBro->DriveArcadeStyle();
+	void TeleopInit(){
 
 	}
 
-	void TestPeriodic()
-	{
+	void TeleopPeriodic(){
+
+		uSVolt = uSIn->GetVoltage();
+		uSInch = uSVolt/0.0098;
+		uSVoltTwo = uSInTwo->GetVoltage();
+		uSInchTwo = uSVoltTwo/0.0098;
+
+		driveBro->dash->PutNumber("Ultrasonic Voltage Reading #1", uSVolt);
+		driveBro->dash->PutNumber("Ultrasonic Inches Reading #1", uSInch);
+		driveBro->dash->PutNumber("Ultrasonic Voltage Reading #2", uSVoltTwo);
+		driveBro->dash->PutNumber("Ultrasonic Inches Reading #2", uSInchTwo);
+
+		driveBro->DriveMecanumStyle();
+
+	}
+
+	void TestPeriodic(){
+
 		lw->Run();
+
 	}
+
 };
 
 START_ROBOT_CLASS(Robot);

@@ -1,0 +1,72 @@
+#include "WPILib.h"
+#include "DriveSystem.h"
+
+class Robot: public IterativeRobot
+{
+
+public:
+
+	DriveSystem *driveBro;
+	Ultrasonic *uS;
+
+	Robot(){
+
+		driveBro = new DriveSystem();
+		uS = new Ultrasonic(1, 2, Ultrasonic::kMilliMeters);
+		uS->SetEnabled(true);
+
+	}
+
+	~Robot(){
+
+		delete driveBro;
+		delete uS;
+
+	}
+
+private:
+
+	LiveWindow *lw;
+
+	void RobotInit(){
+
+		lw = LiveWindow::GetInstance();
+
+	}
+
+	void AutonomousInit(){
+
+	}
+
+	void AutonomousPeriodic(){
+
+	}
+
+	void TeleopInit(){
+
+	}
+
+	void TeleopPeriodic(){
+
+		double uSRange;
+
+		if(uS->IsRangeValid()){
+
+			uSRange = uS->GetRangeMM();
+			driveBro->dash->PutNumber("Ultrasonic Reading #1", uSRange);
+
+		}
+
+		driveBro->DriveMecanumStyle();
+
+	}
+
+	void TestPeriodic(){
+
+		lw->Run();
+
+	}
+
+};
+
+START_ROBOT_CLASS(Robot);
