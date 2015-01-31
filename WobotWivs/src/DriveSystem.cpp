@@ -117,12 +117,12 @@ void DriveSystem::DriveTankStyle(){
 }
 
 void DriveSystem::DriveArcadeStyle(){
-
+	drive->ArcadeDrive(stick);
 }
 
 void DriveSystem::DriveSpeedMecanum(float x, float y, float z){
 
-	drive->MecanumDrive_Cartesian(stick->GetX(), stick->GetY(), stick->GetZ());
+	drive->MecanumDrive_Cartesian(x, y, z /*stick->GetX(), stick->GetY(), stick->GetZ()*/);
 
 }
 
