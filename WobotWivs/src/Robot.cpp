@@ -13,7 +13,7 @@ public:
 
 	Robot(){
 
-		driveBro = new DriveSystem;
+		driveBro = new DriveSystem();
 		uSIn = new AnalogInput(1);
 		uSInTwo = new AnalogInput(2);
 
@@ -21,7 +21,6 @@ public:
 
 	~Robot(){
 
-		//driveBro = NULL;
 		delete driveBro;
 		delete uSIn;
 		delete uSInTwo;
@@ -53,20 +52,33 @@ private:
 		uSVoltTwo = uSInTwo->GetVoltage();
 		uSInchTwo = uSVoltTwo/0.0098;
 
-		driveBro->dash->PutNumber("Ultrasonic Voltage Reading #1", uSVolt);
-		driveBro->dash->PutNumber("Ultrasonic Inches Reading #1", uSInch);
-		driveBro->dash->PutNumber("Ultrasonic Voltage Reading #2", uSVoltTwo);
-		driveBro->dash->PutNumber("Ultrasonic Inches Reading #2", uSInchTwo);
+		if((uSInch >= 30.0) && (uSInchTwo >= 30.0)){
 
-		if(uSInch > 40){
-			driveBro->DriveSpeedMecanum(0.0, 1.0, 0.0);
+			driveBro->DriveSpeedMecanum(0.0, 0.5, 0.0);
+
 		}
 
 		else{
 
 			driveBro->StopRobot();
 
+			if(uSInch < uSInchTwo){
 
+				driveBro->DriveSpeedMecanum(0.0, 0.0, -0.1);
+
+			}
+
+			else if(uSInch > uSInchTwo){
+
+				driveBro->DriveSpeedMecanum(0.0, 0.0, 0.1);
+
+			}
+
+			else{
+
+				driveBro->StopRobot();
+
+			}
 
 		}
 

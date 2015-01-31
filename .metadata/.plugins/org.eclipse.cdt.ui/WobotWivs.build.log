@@ -1,1 +1,16 @@
-Info: Nothing to build for WobotWivs
+18:53:47 **** Rebuild of configuration Debug for project WobotWivs ****
+Info: Internal Builder is used for build
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800404/wpilib/cpp/current/include" "-IC:\\Users\\1750800404\\workspace\\WobotWivs\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "src\\Robot.o" "..\\src\\Robot.cpp" 
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800404/wpilib/cpp/current/include" "-IC:\\Users\\1750800404\\workspace\\WobotWivs\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "src\\DriveSystem.o" "..\\src\\DriveSystem.cpp" 
+..\src\DriveSystem.cpp: In member function 'void DriveSystem::DriveMecanumStyle()':
+..\src\DriveSystem.cpp:81:62: warning: for increment expression has no effect [-Wunused-value]
+    for(talTwoSpeed = sReadY; eReadTwo > eReadOne; talTwoSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:91:62: warning: for increment expression has no effect [-Wunused-value]
+    for(talOneSpeed = sReadY; eReadOne > eReadTwo; talOneSpeed-0.01){
+                                                              ^
+arm-frc-linux-gnueabi-g++ "-LC:\\Users\\1750800404/wpilib/cpp/current/lib" -Wl,-rpath,/opt/GenICam_v2_3/bin/Linux_armv7-a -o FRCUserProgram "src\\Robot.o" "src\\DriveSystem.o" -lwpi 
+c:/frc/bin/../lib/gcc/arm-frc-linux-gnueabi/4.9.1/../../../../arm-frc-linux-gnueabi/bin/ld.exe: warning: libstdc++.so.6, needed by C:\Users\1750800404/wpilib/cpp/current/lib\libFRC_NetworkCommunication.so.1.5.0, not found (try using -rpath or -rpath-link)
+
+18:53:58 Build Finished (took 10s.227ms)
+
