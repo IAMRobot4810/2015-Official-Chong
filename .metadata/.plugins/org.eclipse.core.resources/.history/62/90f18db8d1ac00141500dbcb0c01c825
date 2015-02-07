@@ -1,0 +1,51 @@
+#include "WPILib.h"
+
+class Robot: public IterativeRobot
+{
+	Encoder *encoder;
+
+	Robot(){
+
+		encoder = new Encoder(1, 2, false);
+	}
+
+	~Robot(){
+		delete encoder;
+	}
+private:
+	LiveWindow *lw;
+
+	void RobotInit()
+	{
+		lw = LiveWindow::GetInstance();
+	}
+
+	void AutonomousInit()
+	{
+
+	}
+
+	void AutonomousPeriodic()
+	{
+
+	}
+
+	void TeleopInit()
+	{
+
+	}
+
+	void TeleopPeriodic()
+	{
+
+		double rate = encoder->GetRate();
+
+	}
+
+	void TestPeriodic()
+	{
+		lw->Run();
+	}
+};
+
+START_ROBOT_CLASS(Robot);

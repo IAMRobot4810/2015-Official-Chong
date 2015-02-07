@@ -1,0 +1,73 @@
+#include "WPILib.h"
+#include "DriveSystem.h"
+#include <string>
+#include <iostream>
+
+class Robot: public IterativeRobot
+{
+
+public:
+
+	DriveSystem *driveBro;
+	SerialPort *sP;
+	AnalogInput *uSIn;
+	//Ultrasonic *US1;
+
+	Robot(){
+
+		driveBro = new DriveSystem();
+		//sP = new SerialPort(9600, SerialPort::kOnboard, 8, SerialPort::kParity_None, SerialPort::kStopBits_One);
+		uSIn = new AnalogInput(1);
+		//US1 = new Ultrasonic(uSIn, Ultrasonic::kInches);
+
+	}
+
+	~Robot(){
+
+		delete driveBro;
+		//delete sP;
+		delete uSIn;
+		//delete US1;
+
+	}
+
+private:
+
+	LiveWindow *lw;
+
+	void RobotInit(){
+
+		lw = LiveWindow::GetInstance();
+
+	}
+
+	void AutonomousInit(){
+
+	}
+
+	void AutonomousPeriodic(){
+
+	}
+
+	void TeleopInit(){
+
+	}
+
+	void TeleopPeriodic(){
+
+		driveBro->dash->PutNumber("Ultrasonic Voltage Reading #1", uSIn->GetVoltage());
+		//driveBro->dash->PutNumber("Ultrasonic Reading #1", US1->GetRangeInches());
+
+		driveBro->DriveMecanumStyle();
+
+	}
+
+	void TestPeriodic(){
+
+		lw->Run();
+
+	}
+
+};
+
+START_ROBOT_CLASS(Robot);
