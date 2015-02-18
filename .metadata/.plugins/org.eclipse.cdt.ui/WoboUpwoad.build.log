@@ -1,0 +1,88 @@
+12:16:48 **** Rebuild of configuration Debug for project WoboUpwoad ****
+Info: Internal Builder is used for build
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800404/wpilib/cpp/current/include" "-IC:\\Users\\1750800404\\workspace\\WoboUpwoad\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++14 -o "src\\Ultralign.o" "..\\src\\Ultralign.cpp" 
+..\src\Ultralign.cpp: In member function 'float Ultralign::UltraReadSuccessional()':
+..\src\Ultralign.cpp:47:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800404/wpilib/cpp/current/include" "-IC:\\Users\\1750800404\\workspace\\WoboUpwoad\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++14 -o "src\\Robot.o" "..\\src\\Robot.cpp" 
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800404/wpilib/cpp/current/include" "-IC:\\Users\\1750800404\\workspace\\WoboUpwoad\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++14 -o "src\\Lifter.o" "..\\src\\Lifter.cpp" 
+arm-frc-linux-gnueabi-g++ "-IC:\\Users\\1750800404/wpilib/cpp/current/include" "-IC:\\Users\\1750800404\\workspace\\WoboUpwoad\\src" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++14 -o "src\\DriveSystem.o" "..\\src\\DriveSystem.cpp" 
+..\src\DriveSystem.cpp: In member function 'void DriveSystem::DriveMecanumStyle()':
+..\src\DriveSystem.cpp:82:63: warning: for increment expression has no effect [-Wunused-value]
+    for(frTalSpeed = -talValYExp; eReadfr > eReadfl; frTalSpeed+0.01){
+                                                               ^
+..\src\DriveSystem.cpp:92:62: warning: for increment expression has no effect [-Wunused-value]
+    for(flTalSpeed = talValYExp; eReadfl > eReadfr; flTalSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:110:63: warning: for increment expression has no effect [-Wunused-value]
+    for(rrTalSpeed = -talValYExp; eReadrr > eReadrl; rrTalSpeed+0.01){
+                                                               ^
+..\src\DriveSystem.cpp:120:62: warning: for increment expression has no effect [-Wunused-value]
+    for(rlTalSpeed = talValYExp; eReadrl > eReadrr; rlTalSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:143:62: warning: for increment expression has no effect [-Wunused-value]
+    for(flTalSpeed = talValYExp; eReadfr < eReadfl; flTalSpeed+0.01){
+                                                              ^
+..\src\DriveSystem.cpp:153:63: warning: for increment expression has no effect [-Wunused-value]
+    for(frTalSpeed = -talValYExp; eReadfl < eReadfr; frTalSpeed-0.01){
+                                                               ^
+..\src\DriveSystem.cpp:171:62: warning: for increment expression has no effect [-Wunused-value]
+    for(rlTalSpeed = talValYExp; eReadrr < eReadrl; rlTalSpeed+0.01){
+                                                              ^
+..\src\DriveSystem.cpp:181:63: warning: for increment expression has no effect [-Wunused-value]
+    for(rlTalSpeed = -talValYExp; eReadrl < eReadrr; rrTalSpeed-0.01){
+                                                               ^
+..\src\DriveSystem.cpp:204:63: warning: for increment expression has no effect [-Wunused-value]
+    for(rrTalSpeed = -talValXExp; eReadrr > eReadfr; rrTalSpeed+0.01){
+                                                               ^
+..\src\DriveSystem.cpp:214:62: warning: for increment expression has no effect [-Wunused-value]
+    for(frTalSpeed = talValXExp; eReadfr > eReadrr; frTalSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:232:63: warning: for increment expression has no effect [-Wunused-value]
+    for(rlTalSpeed = -talValXExp; eReadrl > eReadfl; rlTalSpeed+0.01){
+                                                               ^
+..\src\DriveSystem.cpp:242:62: warning: for increment expression has no effect [-Wunused-value]
+    for(flTalSpeed = talValXExp; eReadfl > eReadrl; flTalSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:265:63: warning: for increment expression has no effect [-Wunused-value]
+    for(rrTalSpeed = -talValXExp; eReadrr > eReadfr; rrTalSpeed-0.01){
+                                                               ^
+..\src\DriveSystem.cpp:275:62: warning: for increment expression has no effect [-Wunused-value]
+    for(frTalSpeed = talValXExp; eReadfr > eReadrr; frTalSpeed+0.01){
+                                                              ^
+..\src\DriveSystem.cpp:293:63: warning: for increment expression has no effect [-Wunused-value]
+    for(rlTalSpeed = -talValXExp; eReadrl > eReadfl; rlTalSpeed-0.01){
+                                                               ^
+..\src\DriveSystem.cpp:303:62: warning: for increment expression has no effect [-Wunused-value]
+    for(flTalSpeed = talValXExp; eReadfl > eReadrl; flTalSpeed+0.01){
+                                                              ^
+..\src\DriveSystem.cpp:326:62: warning: for increment expression has no effect [-Wunused-value]
+    for(frTalSpeed = talValZExp; eReadfr > eReadfl; frTalSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:336:62: warning: for increment expression has no effect [-Wunused-value]
+    for(flTalSpeed = talValZExp; eReadfl > eReadfr; flTalSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:354:62: warning: for increment expression has no effect [-Wunused-value]
+    for(rrTalSpeed = talValZExp; eReadrr > eReadrl; rrTalSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:364:62: warning: for increment expression has no effect [-Wunused-value]
+    for(rlTalSpeed = talValZExp; eReadrl > eReadrr; rlTalSpeed-0.01){
+                                                              ^
+..\src\DriveSystem.cpp:387:62: warning: for increment expression has no effect [-Wunused-value]
+    for(frTalSpeed = talValZExp; eReadfr > eReadfl; frTalSpeed+0.01){
+                                                              ^
+..\src\DriveSystem.cpp:397:62: warning: for increment expression has no effect [-Wunused-value]
+    for(flTalSpeed = talValZExp; eReadfl > eReadfr; flTalSpeed+0.01){
+                                                              ^
+..\src\DriveSystem.cpp:415:62: warning: for increment expression has no effect [-Wunused-value]
+    for(rrTalSpeed = talValZExp; eReadrr > eReadrl; rrTalSpeed+0.01){
+                                                              ^
+..\src\DriveSystem.cpp:425:62: warning: for increment expression has no effect [-Wunused-value]
+    for(rlTalSpeed = talValZExp; eReadrl > eReadrr; rlTalSpeed+0.01){
+                                                              ^
+arm-frc-linux-gnueabi-g++ "-LC:\\Users\\1750800404/wpilib/cpp/current/lib" -Wl,-rpath,/opt/GenICam_v2_3/bin/Linux_armv7-a -o FRCUserProgram "src\\Ultralign.o" "src\\Robot.o" "src\\Lifter.o" "src\\DriveSystem.o" -lwpi 
+c:/frc/bin/../lib/gcc/arm-frc-linux-gnueabi/4.9.1/../../../../arm-frc-linux-gnueabi/bin/ld.exe: warning: libstdc++.so.6, needed by C:\Users\1750800404/wpilib/cpp/current/lib\libFRC_NetworkCommunication.so.1.5.0, not found (try using -rpath or -rpath-link)
+
+12:16:53 Build Finished (took 5s.188ms)
+

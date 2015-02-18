@@ -1,0 +1,278 @@
+#include "Lifter.h"
+
+Lifter::Lifter()
+{
+	lifthelper = new CANTalon(8);
+	clamper = new CANTalon(4);
+	heightpot = new AnalogInput(5);
+	topLimit = new DigitalInput(0);
+	botLimit = new DigitalInput(1);
+	currarmpos = Open;
+	lifttalon = new CANTalon(7);
+	armwidth = new AnalogInput(4);
+	currlevel = 0;
+
+	Rolex = new Timer();
+
+
+}
+
+Lifter::~Lifter()
+{
+	delete clamper;
+
+	delete heightpot;
+
+	delete lifttalon;
+	delete armwidth;
+
+	delete Rolex;
+
+}
+
+float Lifter::talSpeedLift(){
+
+	Rolex->Reset();
+	Rolex->Start();
+	sec = Rolex->Get();
+	potRead = ConvertToMeters(heightpot->GetVoltage());
+
+	Rolex->Stop();
+
+	liftRead = abs(potRead/sec);
+
+	//Edit the 5.0
+
+	if(liftRead > 5.0){
+
+		while(liftRead > 5.0){
+
+			setSpeedLift = setSpeedLift - 0.01;
+
+		}
+
+	}
+
+	else if(liftRead <= 5.0){
+
+		while(liftRead <= 5.0){
+
+			setSpeedLift = setSpeedLift + 0.01;
+
+		}
+
+	}
+
+	return setSpeedLift;
+
+}
+
+int Lifter::GetLevel()
+{
+	return currlevel;
+}
+
+int Lifter::GetArmpos()
+{
+	return currarmpos;
+}
+
+void Lifter::SetLevel(level l)
+{
+	switch (l)
+	{
+	SetArmpos(Lifter::armpos::OPEN);
+	case GROUND:
+		if(ConvertToMeters(heightpot->GetVoltage())>groundmeters && botLimit->Get())
+		{
+			lifttalon->Set(talSpeedLift());
+			lifthelper->Set(talSpeedLift());
+		}
+		else if(ConvertToMeters(heightpot->GetVoltage())<=groundmeters || !botLimit->Get()){
+			lifttalon->Set(0);
+			currlevel = Ground;
+		}
+		break;
+	case UNDERBOXONE:
+		if(ConvertToMeters(heightpot->GetVoltage())>uboxonemeters)
+		{
+			lifttalon->Set(talSpeedLift());
+			lifthelper->Set(talSpeedLift());
+		}
+		else if(ConvertToMeters(heightpot->GetVoltage())<uboxonemeters)
+		{
+			lifttalon->Set(-talSpeedLift());
+			lifthelper->Set(-talSpeedLift());
+		}
+		else
+		{
+			lifttalon->Set(0);
+			lifthelper->Set(0);
+			currlevel = Underboxone;
+		}
+		break;
+	case INBETWEEN:
+		if(ConvertToMeters(heightpot->GetVoltage())>inbetweenmeters)
+		{
+			lifttalon->Set(talSpeedLift());
+			lifthelper->Set(talSpeedLift());
+		}
+		else if(ConvertToMeters(heightpot->GetVoltage())<inbetweenmeters)
+		{
+			lifttalon->Set(-talSpeedLift());
+			lifthelper->Set(-talSpeedLift());
+		}
+		else
+		{
+			lifttalon->Set(0);
+			lifthelper->Set(0);
+			currlevel = Inbetween;
+		}
+		break;
+	case OVERBOXTWO:
+		if(ConvertToMeters(heightpot->GetVoltage())>overbtwometers)
+		{
+			lifttalon->Set(talSpeedLift());
+			lifthelper->Set(talSpeedLift());
+		}
+		else if(ConvertToMeters(heightpot->GetVoltage())<overbtwometers)
+		{
+		lifttalon->Set(-talSpeedLift());
+		lifthelper->Set(-talSpeedLift());
+		}
+		else
+		{
+			lifttalon->Set(0);
+			lifthelper->Set(0);
+			currlevel = Overboxtwo;
+		}
+		break;
+	case GETGARBAGECAN:
+		if(ConvertToMeters(heightpot->GetVoltage())>getgarbagemeters)
+		{
+			lifttalon->Set(talSpeedLift());
+			lifthelper->Set(talSpeedLift());
+		}
+		else if(ConvertToMeters(heightpot->GetVoltage())<getgarbagemeters)
+		{
+			lifttalon->Set(-talSpeedLift());
+			lifthelper->Set(-talSpeedLift());
+		}
+		else
+		{
+			lifttalon->Set(0);
+			lifthelper->Set(0);
+			currlevel = Getgarbage;
+		}
+		break;
+	case PLACEGARBAGECAN:
+		if(ConvertToMeters(heightpot->GetVoltage())>placegarbagemeters)
+		{
+			lifttalon->Set(talSpeedLift());
+			lifthelper->Set(talSpeedLift());
+		}
+		else if(ConvertToMeters(heightpot->GetVoltage())<placegarbagemeters)
+		{
+			lifttalon->Set(-talSpeedLift());
+			lifthelper->Set(-talSpeedLift());
+		}
+		else
+		{
+			lifttalon->Set(0);
+			lifthelper->Set(0);
+			currlevel = PlaceGarbage;
+		}
+		break;
+
+	case TOP:
+
+		if(ConvertToMeters(heightpot->GetVoltage())<topmeters && topLimit->Get())
+		{
+			lifttalon->Set(-talSpeedLift());
+			lifthelper->Set(-talSpeedLift());
+		}
+		else if(ConvertToMeters(heightpot->GetVoltage())>=topmeters && !topLimit->Get())
+		{
+			lifttalon->Set(0);
+			lifthelper->Set(0);
+			currlevel = Top;
+		}
+		break;
+
+	};
+
+}
+
+void Lifter::SetArmpos(armpos a)
+{
+	switch(a)
+	{
+	case OPEN:
+		if(ConvertToMeters(armwidth->GetVoltage())>openwidthm)
+				{
+					clamper->Set(-0.50);
+				}
+				else if(ConvertToMeters(armwidth->GetVoltage())<openwidthm)
+				{
+					lifttalon->Set(0.50);
+				}
+				else
+				{
+					lifttalon->Set(0);
+					currarmpos = Open;
+				}
+		break;
+	case BOXWIDE:
+		if(ConvertToMeters(armwidth->GetVoltage())>boxwidem)
+						{
+							clamper->Set(-0.50);
+						}
+						else if(ConvertToMeters(armwidth->GetVoltage())<boxwidem)
+						{
+							lifttalon->Set(0.50);
+						}
+						else
+						{
+							lifttalon->Set(0);
+							currarmpos = Boxwide;
+						}
+		break;
+	case BOXSHORT:
+		if(ConvertToMeters(armwidth->GetVoltage())>boxsmallm)
+								{
+									clamper->Set(-0.50);
+								}
+								else if(ConvertToMeters(armwidth->GetVoltage())<boxsmallm)
+								{
+									lifttalon->Set(0.50);
+								}
+								else
+								{
+									lifttalon->Set(0);
+									currarmpos = Boxshort;
+								}
+		break;
+	case GARBAGECAN:
+		if(ConvertToMeters(armwidth->GetVoltage())>gcanm)
+								{
+									clamper->Set(-0.50);
+								}
+								else if(ConvertToMeters(armwidth->GetVoltage())<gcanm)
+								{
+									lifttalon->Set(0.50);
+								}
+								else
+								{
+									lifttalon->Set(0);
+									currarmpos = Garbage;
+								}
+		break;
+	}
+
+}
+
+float Lifter::ConvertToMeters(float v){
+	return (v*factormeters);
+}
+
+

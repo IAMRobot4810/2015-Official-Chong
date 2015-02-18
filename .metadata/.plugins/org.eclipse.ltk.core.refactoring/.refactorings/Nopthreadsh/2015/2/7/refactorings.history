@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;WobotWivs/src/DriveSystem.h&apos; to &apos;DriveSystem.hpp&apos;" description="Rename resource &apos;DriveSystem.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/DriveSystem.h" name="DriveSystem.hpp" stamp="1423484658402" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;WobotWivs/src/DriveSystem.hpp&apos; to &apos;DriveSystem.h&apos;" description="Rename resource &apos;DriveSystem.hpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/DriveSystem.hpp" name="DriveSystem.h" stamp="1423484670367" updateReferences="true"/>
+</session>

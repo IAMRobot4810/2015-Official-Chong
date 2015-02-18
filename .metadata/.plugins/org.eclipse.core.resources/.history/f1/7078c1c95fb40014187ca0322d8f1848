@@ -1,0 +1,52 @@
+#include "WPILib.h"
+
+class Robot: public IterativeRobot
+{
+
+public:
+
+	AnalogInput *sPot;
+	SmartDashboard *sD;
+
+private:
+	LiveWindow *lw;
+
+	void RobotInit()
+	{
+		sPot = new AnalogInput(3);
+		sD->init();
+		lw = LiveWindow::GetInstance();
+	}
+
+	void AutonomousInit()
+	{
+
+	}
+
+	void AutonomousPeriodic()
+	{
+
+	}
+
+	void TeleopInit()
+	{
+
+	}
+
+	void TeleopPeriodic()
+	{
+
+		int val1 = sPot->GetValue;
+		float val2 = sPot->GetVoltage();
+
+		sD->PutNumber("GetValue", val1);
+		sD->PutNumber("GetVoltage", val2);
+	}
+
+	void TestPeriodic()
+	{
+		lw->Run();
+	}
+};
+
+START_ROBOT_CLASS(Robot);

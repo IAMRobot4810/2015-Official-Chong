@@ -1,0 +1,14 @@
+.955 @ 0 in
+.345 @ 55.25 in
+
+
+m = -90.57377049
+x = x
+y = y
+b = 
+
+y = -90.57377049x + 86.49795082
+
+
+.345 to 5 in ground to arms min
+.955 to 57 in ground to arms max

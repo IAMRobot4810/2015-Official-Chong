@@ -1,0 +1,81 @@
+#include "WPILib.h"
+#include "TeleControl.h"
+
+class Robot: public IterativeRobot
+{
+
+public:
+
+	//SmartDashboard *sD;
+	TeleControl *Control;
+	//AnalogInput *uSIn;
+	//AnalogInput *uSInTwo;
+
+	Robot(){
+
+	}
+
+	~Robot(){
+
+		delete Control;
+		//delete uSIn;
+		//delete uSInTwo;
+
+	}
+
+private:
+
+	LiveWindow *lw;
+	//double uSVolt;
+	//double uSVoltTwo;
+	//double uSInch;
+	//double uSInchTwo;
+
+	void RobotInit(){
+
+		lw = LiveWindow::GetInstance();
+		//sD->init();
+		Control = new TeleControl();
+		//uSIn = new AnalogInput(1);
+		//uSInTwo = new AnalogInput(2);
+
+	}
+
+	void AutonomousInit(){
+
+	}
+
+	void AutonomousPeriodic(){
+
+	}
+
+	void TeleopInit(){
+
+	}
+
+	void TeleopPeriodic(){
+
+		//uSVolt = uSIn->GetVoltage();
+		//uSInch = uSVolt/0.0098;
+		//uSVoltTwo = uSInTwo->GetVoltage();
+		//uSInchTwo = uSVoltTwo/0.0098;
+
+		//sD->PutNumber("Ultrasonic Voltage Reading #1", uSVolt);
+		//sD->PutNumber("Ultrasonic Inches Reading #1", uSInch);
+		//sD->PutNumber("Ultrasonic Voltage Reading #2", uSVoltTwo);
+		//sD->PutNumber("Ultrasonic Inches Reading #2", uSInchTwo);
+
+		Control->FULLCONTROL(TeleControl::isMecanum);
+
+	}
+
+	void TestPeriodic(){
+
+		lw->Run();
+
+	}
+
+
+};
+
+START_ROBOT_CLASS(Robot);

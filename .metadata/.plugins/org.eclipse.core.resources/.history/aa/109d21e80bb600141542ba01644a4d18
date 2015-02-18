@@ -1,0 +1,48 @@
+#ifndef LIFTER_H
+#define LIFTER_H
+
+#include <WPILib.h>
+#include <cmath>
+
+class Lifter
+{
+
+private:
+
+	AnalogPotentiometer* heightpot;
+	DigitalInput *topLimit;
+	DigitalInput *botLimit;
+	CANTalon* lifttalon;
+	CANTalon*lifthelper;
+	SmartDashboard *sDLift;
+	int currlevel;
+
+public:
+	Lifter();
+	~Lifter();
+	enum level{GROUND, UNDERBOXONE, INBETWEEN, OVERBOXTWO, GETGARBAGECAN, PLACEGARBAGECAN, TOP};
+
+	static const int Ground = 0;
+	static const int Underboxone = 1;
+	static const int Inbetween = 2;
+	static const int Overboxtwo = 3;
+	static const int Getgarbage = 4;
+	static const int PlaceGarbage = 5;
+	static const int Top = 6;
+	float ConvertToInches(float v);
+	int GetLevel();
+	void SetLevel(level l);
+	float talSpeedLift();
+	constexpr static const double groundinches = 5;
+	constexpr static const double uboxoneinches = 10;
+	constexpr static const double inbetweeninches = 15;
+	constexpr static const double overbtwoinches = 20;
+	constexpr static const double getgarbageinches = 25;
+	constexpr static const double placegarbageinches = 30;
+	constexpr static const double topinches = 54;
+
+};
+
+
+
+#endif
