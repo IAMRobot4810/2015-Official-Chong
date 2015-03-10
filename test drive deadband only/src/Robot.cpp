@@ -12,16 +12,16 @@ public:
 	CANTalon *frTal;
 	CANTalon *rrTal;
 	RobotDrive *drive;
-	Gyro *gy;
+	//Gyro *gy;
 	BuiltInAccelerometer *acc;
 
-	Compressor *comp;
-	Solenoid *sol;
-	DoubleSolenoid *arm;
+	//Compressor *comp;
+	//Solenoid *sol;
+	//DoubleSolenoid *arm;
 	CANTalon *tal6;
 	CANTalon *tal5;
-	DigitalInput *limit;
-	AnalogPotentiometer *sPot;
+	//DigitalInput *limit;
+	//AnalogPotentiometer *sPot;
 	Timer *time;
 	Timer *time2;
 	Timer *time3;
@@ -37,16 +37,16 @@ public:
 		frTal = new CANTalon(2);
 		rrTal = new CANTalon(4);
 		drive = new RobotDrive(flTal, rlTal, frTal, rrTal);
-		gy = new Gyro(0);
+		//gy = new Gyro(0);
 		acc = new BuiltInAccelerometer();
 
-		comp = new Compressor(1);
-		sol = new Solenoid(1, 0);
-		arm = new DoubleSolenoid(1, 1, 2);
+		//comp = new Compressor(1);
+		//sol = new Solenoid(1, 0);
+		//arm = new DoubleSolenoid(1, 1, 2);
 		tal6 = new CANTalon(6);
 		tal5 = new CANTalon(5);
-		limit = new DigitalInput(0);
-		sPot = new AnalogPotentiometer(3, 1.0, 0.0);
+		//limit = new DigitalInput(0);
+		//sPot = new AnalogPotentiometer(3, 1.0, 0.0);
 		time = new Timer();
 		time2 = new Timer();
 		time3 = new Timer();
@@ -59,7 +59,7 @@ public:
 		rlTal->SetFeedbackDevice(CANTalon::QuadEncoder);
 		frTal->SetFeedbackDevice(CANTalon::QuadEncoder);
 		rrTal->SetFeedbackDevice(CANTalon::QuadEncoder);
-		gy->InitGyro();
+		//gy->InitGyro();
 
 		dash->init();
 
@@ -75,16 +75,16 @@ public:
 		delete frTal;
 		delete rrTal;
 		delete drive;
-		delete gy;
+		//delete gy;
 		delete acc;
 
-		delete comp;
-		delete sol;
-		delete arm;
+		//delete comp;
+		//delete sol;
+		//delete arm;
 		delete tal6;
 		delete tal5;
-		delete limit;
-		delete sPot;
+		//delete limit;
+		//delete sPot;
 		delete time;
 		delete time2;
 		delete time3;
@@ -138,7 +138,7 @@ private:
 		time4->Start();
 		//arm->Set(DoubleSolenoid::kReverse);
 		bool jb1Hit = false;
-		tal5->SetVoltageRampRate(2);
+		//tal5->SetVoltageRampRate(2);
 		dash->PutBoolean("Gyroscope On", true);
 
 	}
@@ -153,7 +153,7 @@ private:
 
 		float gyrAngle;
 
-		if(dash->GetBoolean("Gyroscope On") == true){
+		/*if(dash->GetBoolean("Gyroscope On") == true){
 			gyrAngle = gy->GetAngle();
 		}
 
@@ -164,7 +164,7 @@ private:
 		else{
 			dash->PutBoolean("Gyroscope On", true);
 			gyrAngle = gy->GetAngle();
-		}
+		}*/
 
 		double roll = acc->GetX();
 		double pitch = acc->GetY();
@@ -188,8 +188,8 @@ private:
 		float frVolt = frTal->GetOutputVoltage();
 		float rrVolt = rrTal->GetOutputVoltage();
 
-		float sPotRead = sPot->Get();
-		float sInch = abs(-85.2459*sPotRead+23.90984);
+		//float sPotRead = sPot->Get();
+		//float sInch = abs(-85.2459*sPotRead+23.90984);
 
 		dash->PutNumber("Stick X", stickX);
 		dash->PutNumber("Stick Y", stickY);
@@ -210,8 +210,8 @@ private:
 		dash->PutNumber("Front Right Voltage", frVolt);
 		dash->PutNumber("Rear Right Voltage", rrVolt);
 
-		dash->PutNumber("String Read", sPotRead);
-		dash->PutNumber("Height (Inches)", sInch);
+		//dash->PutNumber("String Read", sPotRead);
+		//dash->PutNumber("Height (Inches)", sInch);
 
 		dash->PutNumber("GyroAngle", gyrAngle);
 		dash->PutNumber("Roll", roll);
@@ -294,11 +294,11 @@ private:
 		}*/
 
 		if(stick->GetRawButton(2) /*&& jb1Hit == false*/){ // opening
-			arm->Set(DoubleSolenoid::kForward);
+			//arm->Set(DoubleSolenoid::kForward);
 			jb1Hit = true;
 		}
 		if(stick->GetRawButton(1) /*&& jb1Hit == true*/){ // closing
-			arm->Set(DoubleSolenoid::kReverse);
+			//arm->Set(DoubleSolenoid::kReverse);
 			jb1Hit = false;
 		}
 
@@ -331,30 +331,30 @@ private:
 		float armSpeed = ((-stick->GetThrottle())/2) + 0.54;
 		dash->PutNumber("Throttle Value", armSpeed);
 
-		if(stick->GetRawButton(5) == jb5Hit && stick->GetRawButton(3) != jb3Hit && limit->Get()) {
-			sol->Set(true);
+		if(stick->GetRawButton(5) == jb5Hit && stick->GetRawButton(3) != jb3Hit /*&& limit->Get()*/) {
+			//sol->Set(true);
 			tal5->Set(-armSpeed);
 			tal6->Set(-armSpeed);
 		}
-		else if(stick->GetRawButton(3) != jb3Hit && !limit->Get() && stick->GetRawButton(5) == jb5Hit){
+		else if(stick->GetRawButton(3) != jb3Hit /*&& !limit->Get()*/ && stick->GetRawButton(5) == jb5Hit){
 			tal5->Set(0.0);
 			tal6->Set(0.0);
-			sol->Set(false);
+			//sol->Set(false);
 		}
 		else if(stick->GetRawButton(3) == jb3Hit && stick->GetRawButton(5) != jb5Hit){
-			sol->Set(true);
+			//sol->Set(true);
 			tal5->Set(0.0);
 			tal6->Set(0.0);
 		}
 		else if(stick->GetRawButton(5) != jb5Hit && stick->GetRawButton(3) != jb3Hit){
 			tal5->Set(0.0);
 			tal6->Set(0.0);
-			sol->Set(false);
+			//sol->Set(false);
 		}
 		else if(stick->GetRawButton(5) == jb5Hit && stick->GetRawButton(3) == jb3Hit){
 			tal5->Set(0.0);
 			tal6->Set(0.0);
-			sol->Set(false);
+			//sol->Set(false);
 		}
 
 		/*if(stick->GetRawButton(7) == jb7Hit) {

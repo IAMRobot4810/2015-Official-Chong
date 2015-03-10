@@ -1,51 +1,73 @@
 #include "WPILib.h"
-#include <cmath>
+#include "DriveSystem.h"
 
 class Robot: public IterativeRobot
 {
 
 public:
 
-	AnalogInput *sPot;
-	AnalogPotentiometer *aPot;
 	SmartDashboard *sD;
-	CANTalon *tal6;
-	CANTalon *tal5;
-	Joystick *stick;
-	JoystickButton *but3;
-	JoystickButton *but4;
-	JoystickButton *but5;
+	/*Joystick *stick;
+	CANTalon *fl;
+	CANTalon *rl;
+	CANTalon *fr;
+	CANTalon *rr;
+	RobotDrive *dr;*/
+	DriveSystem *driveBro;
+	SerialPort *sp;
+	char *buff;
+	int buffread;
+	AnalogInput *aPot;
+	AnalogPotentiometer *sPot;
+	//Compressor *comp;
 
 	Robot(){
 
 	}
 
 	~Robot(){
-		delete sPot;
+
+		/*delete stick;
+		delete fl;
+		delete rl;
+		delete fr;
+		delete rr;
+		delete dr*/;
+		delete driveBro;
+		delete sp;
+		delete buff;
 		delete aPot;
-		delete tal6;
-		delete tal5;
-		delete stick;
-		delete but3;
-		delete but4;
-		delete but5;
+		delete sPot;
+		//delete comp;
 	}
 
 private:
+
+	double sPotGet;
+
 	LiveWindow *lw;
 
 	void RobotInit()
 	{
-		sPot = new AnalogInput(3);
-		aPot = new AnalogPotentiometer(sPot, 1.0, 0.0);
+
 		sD->init();
-		tal6 = new CANTalon(6);
-		tal5 = new CANTalon(5);
-		stick = new Joystick(0);
-		but3 = new JoystickButton(stick, 3);
-		but4 = new JoystickButton(stick, 4);
-		but5 = new JoystickButton(stick, 5);
+		/*stick = new Joystick(0);
+		fl = new CANTalon(3);
+		rl = new CANTalon(1);
+		fr = new CANTalon(2);
+		rr = new CANTalon(4);
+		dr = new RobotDrive(fl, rl, fr, rr);
+		dr->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
+		dr->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
+		dr->SetSafetyEnabled(false);*/
+		driveBro = new DriveSystem();
+		sp = new SerialPort(9600, SerialPort::kUSB);
+		buff = new char[2];
+		aPot = new AnalogInput(0);
+		sPot = new AnalogPotentiometer(aPot, 1.0, 0.0);
+		//comp = new Compressor(1);
 		lw = LiveWindow::GetInstance();
+
 	}
 
 	void AutonomousInit()
@@ -66,30 +88,25 @@ private:
 	void TeleopPeriodic()
 	{
 
-		double val1 = aPot->Get();
-		float val2 = sPot->GetVoltage();
+		sPotGet = sPot->Get();
 
-		float scale = abs(-85.2459*val1+23.90984);
+		sD->PutNumber("String Potentiometer", sPotGet);
 
-		sD->PutNumber("Get", val1);
-		sD->PutNumber("GetVoltage", val2);
-		sD->PutNumber("GetValue", sPot->GetValue());
-		sD->PutNumber("ScaledVal", scale);
+		sp->Read(buff, 1);
+		buffread = (int) buff[0];
+		std::string heybuff(buff);
 
-		if(but3->Get()){
-			tal5->Set(-0.25);
-			tal6->Set(-0.25);
-		}
+		sD->PutString("Buffer: ", heybuff);
+		sD->PutNumber("Converted: ", buffread);
 
-		else if(but4->Get()){
-			tal5->Set(0.25);
-			tal6->Set(0.25);
-		}
-
-		else if(but5->Get()){
-			tal5->Set(0.0);
-			tal6->Set(0.0);
-		}
+		driveBro->DriveMecanumStyleEncoder();
+		/*for(float x = 0.0; x <= 1.0; x+=0.0001){
+			fl->Set(x);
+			rl->Set(x);
+			fr->Set(x);
+			rr->Set(x);
+			sD->PutNumber("talSpeed", x);
+		}*/
 	}
 
 	void TestPeriodic()

@@ -12,3 +12,8 @@ y = -90.57377049x + 86.49795082
 
 .345 to 5 in ground to arms min
 .955 to 57 in ground to arms max
+
+TestRobot
+
+.358 @ 0 in
+.930 @ 60 in

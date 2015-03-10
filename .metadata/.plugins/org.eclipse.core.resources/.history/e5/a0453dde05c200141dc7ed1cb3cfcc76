@@ -1,0 +1,80 @@
+#include "WPILib.h"
+#include <cmath>
+#include <stdlib.h>
+#include <vector>
+#define ARDUINO_ADDR 0x23
+
+class Robot: public IterativeRobot
+{
+
+public:
+
+	SmartDashboard *sD;
+	Joystick *stick;
+	SerialPort *sp;
+	//I2C *ard;
+	char *buff;
+	//std::string x;
+
+	Robot(){
+
+	}
+
+	~Robot(){
+
+		delete stick;
+		//delete ard;
+		delete sp;
+		delete buff;
+		//delete x;
+	}
+
+private:
+
+	LiveWindow *lw;
+
+	void RobotInit()
+	{
+
+		sD->init();
+		stick = new Joystick(0);
+		buff = new char[8];
+		//ard = new I2C(I2C::kOnboard, ARDUINO_ADDR);
+		lw = LiveWindow::GetInstance();
+		sp = new SerialPort(9600, SerialPort::kUSB);
+
+	}
+
+	void AutonomousInit()
+	{
+
+	}
+
+	void AutonomousPeriodic()
+	{
+
+	}
+
+	void TeleopInit()
+	{
+
+	}
+
+	void TeleopPeriodic()
+	{
+
+		//ard->ReadOnly()
+		sp->Read(buff, 8);
+		//x = atoi(buff);
+		std::string x(buff);
+		//std::cout << buff << std::endl;
+		sD->PutString("Buffer: ", buff);
+	}
+
+	void TestPeriodic()
+	{
+		lw->Run();
+	}
+};
+
+START_ROBOT_CLASS(Robot);

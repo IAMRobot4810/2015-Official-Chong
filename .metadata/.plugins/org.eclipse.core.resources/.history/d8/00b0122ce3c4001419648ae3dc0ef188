@@ -1,0 +1,98 @@
+#include "WPILib.h"
+#include <cmath>
+#include <stdlib.h>
+
+class Robot: public IterativeRobot
+{
+
+public:
+
+	SmartDashboard *sD;
+	Joystick *stick;
+	Talon *fl;
+	Talon *rl;
+	Talon *fr;
+	Talon *rr;
+	RobotDrive *dr;
+	SerialPort *sp;
+	char *buff;
+
+	Robot(){
+
+	}
+
+	~Robot(){
+
+		delete stick;
+		delete fl;
+		delete rl;
+		delete fr;
+		delete rr;
+		delete dr;
+		delete sp;
+		delete buff;
+	}
+
+private:
+
+	LiveWindow *lw;
+
+	void RobotInit()
+	{
+
+		sD->init();
+		stick = new Joystick(0);
+		fl = new Talon(3);
+		rl = new Talon(1);
+		fr = new Talon(2);
+		rr = new Talon(4);
+		dr = new RobotDrive(fl, rl, fr, rr);
+		dr->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
+		dr->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
+		dr->SetSafetyEnabled(false);
+		buff = new char[8];
+		lw = LiveWindow::GetInstance();
+		sp = new SerialPort(9600, SerialPort::kUSB);
+
+	}
+
+	void AutonomousInit()
+	{
+
+	}
+
+	void AutonomousPeriodic()
+	{
+
+	}
+
+	void TeleopInit()
+	{
+
+	}
+
+	void TeleopPeriodic()
+	{
+
+		/*//ard->ReadOnly()
+		sp->Read(buff, 8);
+		//x = atoi(buff);
+		std::string x(buff);
+		//std::cout << buff << std::endl;
+		sD->PutString("Buffer: ", buff);*/
+		for(float x = 0.0; x <= 1.0; x+=0.0001){
+			fl->Set(x);
+			fl->Set(x);
+			fl->Set(x);
+			fl->Set(x);
+			sD->PutNumber("talSpeed", x);
+		}
+	}
+
+	void TestPeriodic()
+	{
+		lw->Run();
+	}
+};
+
+START_ROBOT_CLASS(Robot);
