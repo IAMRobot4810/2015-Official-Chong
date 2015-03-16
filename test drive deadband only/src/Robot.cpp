@@ -24,6 +24,12 @@ public:
 	AnalogPotentiometer *sPot;
 	SmartDashboard *dash;
 
+	SerialPort *sp;
+	char *buff;
+	int buffread1;
+	int buffread2;
+	int buffread3;
+
 	Robot(){
 
 		stick = new Joystick(0);
@@ -43,6 +49,9 @@ public:
 		tal5 = new CANTalon(5);
 		//limit = new DigitalInput(0);
 		sPot = new AnalogPotentiometer(0, 1.0, 0.0);
+
+		sp = new SerialPort(9600, SerialPort::kUSB);
+		buff = new char[4];
 
 		drive->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
 		drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
@@ -77,6 +86,9 @@ public:
 		delete tal5;
 		//delete limit;
 		delete sPot;
+
+		delete sp;
+		delete buff;
 
 	}
 
@@ -316,6 +328,19 @@ private:
 			tal6->Set(0.0);
 		}*/
 
+
+		sp->Read(buff, 3);
+		buffread1 = (int) buff[0];
+		std::string heybuff(buff);
+
+		dash->PutString("Buffer: ", heybuff);
+		dash->PutNumber("Converted1: ", buffread1);
+
+		buffread2 = (int) buff[1];
+		dash->PutNumber("Converted2: ", buffread2);
+
+		buffread3 = (int) buff[2];
+		dash->PutNumber("Converted3: ", buffread3);
 	}
 
 	void TestPeriodic()
