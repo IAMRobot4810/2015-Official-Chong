@@ -15,17 +15,13 @@ public:
 	//Gyro *gy;
 	BuiltInAccelerometer *acc;
 
-	//Compressor *comp;
-	//Solenoid *sol;
-	//DoubleSolenoid *arm;
+	Compressor *comp;
+	Solenoid *sol;
+	Solenoid *arm;
 	CANTalon *tal6;
 	CANTalon *tal5;
 	//DigitalInput *limit;
-	//AnalogPotentiometer *sPot;
-	Timer *time;
-	Timer *time2;
-	Timer *time3;
-	Timer *time4;
+	AnalogPotentiometer *sPot;
 	SmartDashboard *dash;
 
 	Robot(){
@@ -40,17 +36,13 @@ public:
 		//gy = new Gyro(0);
 		acc = new BuiltInAccelerometer();
 
-		//comp = new Compressor(1);
-		//sol = new Solenoid(1, 0);
-		//arm = new DoubleSolenoid(1, 1, 2);
+		comp = new Compressor(1);
+		sol = new Solenoid(1, 4);
+		arm = new Solenoid(1, 5);
 		tal6 = new CANTalon(6);
 		tal5 = new CANTalon(5);
 		//limit = new DigitalInput(0);
-		//sPot = new AnalogPotentiometer(3, 1.0, 0.0);
-		time = new Timer();
-		time2 = new Timer();
-		time3 = new Timer();
-		time4 = new Timer();
+		sPot = new AnalogPotentiometer(0, 1.0, 0.0);
 
 		drive->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
 		drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
@@ -78,17 +70,13 @@ public:
 		//delete gy;
 		delete acc;
 
-		//delete comp;
-		//delete sol;
-		//delete arm;
+		delete comp;
+		delete sol;
+		delete arm;
 		delete tal6;
 		delete tal5;
 		//delete limit;
-		//delete sPot;
-		delete time;
-		delete time2;
-		delete time3;
-		delete time4;
+		delete sPot;
 
 	}
 
@@ -99,12 +87,6 @@ private:
 	bool jb1Hit = false;
 	const bool jb3Hit = true;
 	const bool jb5Hit = true;
-	/*const bool jb7Hit = true;
-	const bool jb8Hit = true;
-	bool jb9Hit = false;
-	bool jb10Hit = false;
-	bool jb11Hit = false;
-	bool jb12Hit = false;*/
 
 	void RobotInit()
 	{
@@ -118,28 +100,17 @@ private:
 
 	void AutonomousPeriodic()
 	{
-		drive->MecanumDrive_Cartesian(0.0, -0.5, 0.0);
-		Wait(2.0);
-		drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0);
-		Wait(10);
 
 	}
 
 	void TeleopInit()
 	{
 
-		time->Reset();
-		time2->Reset();
-		time3->Reset();
-		time4->Reset();
-		time->Start();
-		time2->Start();
-		time3->Start();
-		time4->Start();
-		//arm->Set(DoubleSolenoid::kReverse);
-		bool jb1Hit = false;
+
+		arm->Set(DoubleSolenoid::kReverse);
+		//bool jb1Hit = false;
 		//tal5->SetVoltageRampRate(2);
-		dash->PutBoolean("Gyroscope On", true);
+		//dash->PutBoolean("Gyroscope On", true);
 
 	}
 
@@ -151,7 +122,7 @@ private:
 		int frRead = frTal->GetEncVel();
 		int rrRead = rrTal->GetEncVel();
 
-		float gyrAngle;
+		//float gyrAngle;
 
 		/*if(dash->GetBoolean("Gyroscope On") == true){
 			gyrAngle = gy->GetAngle();
@@ -188,7 +159,8 @@ private:
 		float frVolt = frTal->GetOutputVoltage();
 		float rrVolt = rrTal->GetOutputVoltage();
 
-		//float sPotRead = sPot->Get();
+		float sPotRead = sPot->Get();
+		float sInch = abs(92.65734 * sPotRead - 26.17133);
 		//float sInch = abs(-85.2459*sPotRead+23.90984);
 
 		dash->PutNumber("Stick X", stickX);
@@ -210,32 +182,32 @@ private:
 		dash->PutNumber("Front Right Voltage", frVolt);
 		dash->PutNumber("Rear Right Voltage", rrVolt);
 
-		//dash->PutNumber("String Read", sPotRead);
-		//dash->PutNumber("Height (Inches)", sInch);
+		dash->PutNumber("String Read", sPotRead);
+		dash->PutNumber("Height (Inches)", sInch);
 
-		dash->PutNumber("GyroAngle", gyrAngle);
+		//dash->PutNumber("GyroAngle", gyrAngle);
 		dash->PutNumber("Roll", roll);
 		dash->PutNumber("Pitch", pitch);
 		dash->PutNumber("Yaw", yaw);
 
 		if((stickX > -0.5 && stickX < 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
-			drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0, gyrAngle);
+			drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0/*, gyrAngle*/);
 		}
 
 		else if((stickX > -0.5 && stickX < 0.5) && (stickY <= -0.5 || stickY >= 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
-			drive->MecanumDrive_Cartesian(0.0, sYExp, 0.0, gyrAngle);
+			drive->MecanumDrive_Cartesian(0.0, sYExp, 0.0/*, gyrAngle*/);
 		}
 
 		else if((stickX <= -0.5 || stickX >= 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
-			drive->MecanumDrive_Cartesian(sXExp, 0.0, 0.0, gyrAngle);
+			drive->MecanumDrive_Cartesian(sXExp, 0.0, 0.0/*, gyrAngle*/);
 		}
 
 		else if((stickX > -0.5 && stickX < 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ <= -0.25 && stickZ >= 0.25)){
-			drive->MecanumDrive_Cartesian(0.0, 0.0, sZExp, gyrAngle);
+			drive->MecanumDrive_Cartesian(0.0, 0.0, sZExp/*, gyrAngle*/);
 		}
 
 		else{
-			drive->MecanumDrive_Cartesian(sXExp, sYExp, sZExp, gyrAngle);
+			drive->MecanumDrive_Cartesian(sXExp, sYExp, sZExp/*, gyrAngle*/);
 		}
 
 		/*for(float x = 0.0; x<=1.0; x+=0.0001){
@@ -294,67 +266,43 @@ private:
 		}*/
 
 		if(stick->GetRawButton(2) /*&& jb1Hit == false*/){ // opening
-			//arm->Set(DoubleSolenoid::kForward);
+			arm->Set(false);
 			jb1Hit = true;
 		}
 		if(stick->GetRawButton(1) /*&& jb1Hit == true*/){ // closing
-			//arm->Set(DoubleSolenoid::kReverse);
+			arm->Set(true);
 			jb1Hit = false;
 		}
 
 		dash->PutBoolean("Claw is Open", jb1Hit);
 
-		/*if(jb9Hit == true){
-			lift->SetLevel(Lifter::TOP);
-			jb9Hit = false;
-		}
-
-		if(jb10Hit == true){
-			lift->SetLevel(Lifter::GROUND);
-			jb10Hit = false;
-		}
-
-		if(jb11Hit == true){
-			lift->SetArmpos(Lifter::OPEN);
-			//arm->Set(DoubleSolenoid::kForward);
-			jb11Hit = false;
-		}
-
-		if(jb12Hit == true){
-			lift->SetArmpos(Lifter::CLOSE);
-			//arm->Set(DoubleSolenoid::kReverse);
-			jb12Hit = false;
-		}*/
-
-		//float armSpeed = (((-stick->GetThrottle())*0.0005) + 0.0385);
-		//float armSpeed = (((-stick->GetThrottle())/200) + 0.035);
 		float armSpeed = ((-stick->GetThrottle())/2) + 0.54;
 		dash->PutNumber("Throttle Value", armSpeed);
 
 		if(stick->GetRawButton(5) == jb5Hit && stick->GetRawButton(3) != jb3Hit /*&& limit->Get()*/) {
-			//sol->Set(true);
+			sol->Set(true);
 			tal5->Set(-armSpeed);
 			tal6->Set(-armSpeed);
 		}
 		else if(stick->GetRawButton(3) != jb3Hit /*&& !limit->Get()*/ && stick->GetRawButton(5) == jb5Hit){
 			tal5->Set(0.0);
 			tal6->Set(0.0);
-			//sol->Set(false);
+			sol->Set(false);
 		}
 		else if(stick->GetRawButton(3) == jb3Hit && stick->GetRawButton(5) != jb5Hit){
-			//sol->Set(true);
+			sol->Set(true);
 			tal5->Set(0.0);
 			tal6->Set(0.0);
 		}
 		else if(stick->GetRawButton(5) != jb5Hit && stick->GetRawButton(3) != jb3Hit){
 			tal5->Set(0.0);
 			tal6->Set(0.0);
-			//sol->Set(false);
+			sol->Set(false);
 		}
 		else if(stick->GetRawButton(5) == jb5Hit && stick->GetRawButton(3) == jb3Hit){
 			tal5->Set(0.0);
 			tal6->Set(0.0);
-			//sol->Set(false);
+			sol->Set(false);
 		}
 
 		/*if(stick->GetRawButton(7) == jb7Hit) {

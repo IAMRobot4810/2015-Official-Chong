@@ -44,6 +44,7 @@ public:
 private:
 
 	double sPotGet;
+	double sPotConvert;
 
 	LiveWindow *lw;
 
@@ -89,8 +90,10 @@ private:
 	{
 
 		sPotGet = sPot->Get();
+		sPotConvert = 92.65734 * sPotGet - 26.17133;
 
-		sD->PutNumber("String Potentiometer", sPotGet);
+		sD->PutNumber("String Potentiometer Raw", sPotGet);
+		sD->PutNumber("Lifter Height (Inches)", sPotConvert);
 
 		sp->Read(buff, 1);
 		buffread = (int) buff[0];
@@ -99,7 +102,8 @@ private:
 		sD->PutString("Buffer: ", heybuff);
 		sD->PutNumber("Converted: ", buffread);
 
-		driveBro->DriveMecanumStyleEncoder();
+		driveBro->DriveMecanumStyle();
+
 		/*for(float x = 0.0; x <= 1.0; x+=0.0001){
 			fl->Set(x);
 			rl->Set(x);
