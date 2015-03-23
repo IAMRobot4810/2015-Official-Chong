@@ -21,6 +21,7 @@ public:
 	CANTalon *tal6;
 	CANTalon *tal5;
 	//DigitalInput *limit;
+	Encoder *liftEnco;
 	AnalogPotentiometer *sPot;
 	SmartDashboard *dash;
 
@@ -48,10 +49,8 @@ public:
 		tal6 = new CANTalon(6);
 		tal5 = new CANTalon(5);
 		//limit = new DigitalInput(0);
+		liftEnco = new Encoder(2, 3);
 		sPot = new AnalogPotentiometer(0, 1.0, 0.0);
-
-		sp = new SerialPort(9600, SerialPort::kUSB);
-		buff = new char[4];
 
 		drive->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
 		drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
@@ -60,6 +59,8 @@ public:
 		rlTal->SetFeedbackDevice(CANTalon::QuadEncoder);
 		frTal->SetFeedbackDevice(CANTalon::QuadEncoder);
 		rrTal->SetFeedbackDevice(CANTalon::QuadEncoder);
+		frTal->SetSensorDirection(true);
+		rrTal->SetSensorDirection(true);
 		//gy->InitGyro();
 
 		dash->init();
@@ -85,6 +86,7 @@ public:
 		delete tal6;
 		delete tal5;
 		//delete limit;
+		delete liftEnco;
 		delete sPot;
 
 		delete sp;
@@ -100,13 +102,57 @@ private:
 	const bool jb3Hit = true;
 	const bool jb5Hit = true;
 
+	int flRead = 0;
+	int rlRead = 0;
+	int frRead = 0;
+	int rrRead = 0;
+
+	double liftRate;
+
 	void RobotInit()
 	{
 		lw = LiveWindow::GetInstance();
+		sp = new SerialPort(9600, SerialPort::kUSB);
+		buff = new char[2];
 	}
 
 	void AutonomousInit()
 	{
+
+		flRead = 0;
+		rlRead = 0;
+		frRead = 0;
+		rrRead = 0;
+		arm->Set(true);
+		Wait(1.0);
+		sol->Set(true);
+		tal5->Set(-0.5);
+		tal6->Set(-0.5);
+		Wait(1.2);
+		sol->Set(false);
+		tal5->Set(0.0);
+		tal6->Set(0.0);
+		drive->MecanumDrive_Cartesian(0.0, 0.0, -0.5);
+		Wait(1.0);
+		flRead = flTal->GetEncPosition();
+		rlRead = rlTal->GetEncPosition();
+		frRead = frTal->GetEncPosition();
+		rrRead = rrTal->GetEncPosition();
+		dash->PutNumber("flEncRaw", flRead);
+		dash->PutNumber("rlEncRaw", rlRead);
+		dash->PutNumber("frEncRaw", frRead);
+		dash->PutNumber("rrEncRaw", rrRead);
+		drive->MecanumDrive_Cartesian(0.0, -0.50, 0.0);
+		Wait(2.5);
+		drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0);
+		sol->Set(true);
+		Wait(1.0);
+		arm->Set(false);
+		Wait(0.5);
+		drive->MecanumDrive_Cartesian(0.0, 0.25, 0.0);
+		Wait(0.5);
+		drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0);
+
 
 	}
 
@@ -119,7 +165,7 @@ private:
 	{
 
 
-		arm->Set(DoubleSolenoid::kReverse);
+		arm->Set(false);
 		//bool jb1Hit = false;
 		//tal5->SetVoltageRampRate(2);
 		//dash->PutBoolean("Gyroscope On", true);
@@ -129,10 +175,10 @@ private:
 	void TeleopPeriodic()
 	{
 
-		int flRead = flTal->GetEncVel();
-		int rlRead = rlTal->GetEncVel();
-		int frRead = frTal->GetEncVel();
-		int rrRead = rrTal->GetEncVel();
+		flRead = flTal->GetEncVel();
+		rlRead = rlTal->GetEncVel();
+		frRead = frTal->GetEncVel();
+		rrRead = rrTal->GetEncVel();
 
 		//float gyrAngle;
 
@@ -159,7 +205,7 @@ private:
 
 		float sXExp = pow(stickX, 5);
 		float sYExp = pow(stickY, 5);
-		float sZExp = (pow(stickZ, 3)/2);
+		float sZExp = (pow(stickZ, 3)/3);
 
 		float flCur = flTal->GetOutputCurrent();
 		float rlCur = rlTal->GetOutputCurrent();
@@ -174,6 +220,8 @@ private:
 		float sPotRead = sPot->Get();
 		float sInch = abs(92.65734 * sPotRead - 26.17133);
 		//float sInch = abs(-85.2459*sPotRead+23.90984);
+
+		liftRate = liftEnco->GetRate();
 
 		dash->PutNumber("Stick X", stickX);
 		dash->PutNumber("Stick Y", stickY);
@@ -196,6 +244,8 @@ private:
 
 		dash->PutNumber("String Read", sPotRead);
 		dash->PutNumber("Height (Inches)", sInch);
+
+		dash->PutNumber("Lift Rate", liftRate);
 
 		//dash->PutNumber("GyroAngle", gyrAngle);
 		dash->PutNumber("Roll", roll);
@@ -329,18 +379,18 @@ private:
 		}*/
 
 
-		sp->Read(buff, 3);
-		buffread1 = (int) buff[0];
+		sp->Read(buff, 1);
 		std::string heybuff(buff);
-
 		dash->PutString("Buffer: ", heybuff);
+
+		buffread1 = (int) buff[0];
 		dash->PutNumber("Converted1: ", buffread1);
 
-		buffread2 = (int) buff[1];
+		/*buffread2 = (int) buff[1];
 		dash->PutNumber("Converted2: ", buffread2);
 
 		buffread3 = (int) buff[2];
-		dash->PutNumber("Converted3: ", buffread3);
+		dash->PutNumber("Converted3: ", buffread3);*/
 	}
 
 	void TestPeriodic()
