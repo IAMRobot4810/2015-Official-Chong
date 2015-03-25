@@ -12,7 +12,7 @@ public:
 	CANTalon *frTal;
 	CANTalon *rrTal;
 	RobotDrive *drive;
-	//Gyro *gy;
+	Gyro *gy;
 	BuiltInAccelerometer *acc;
 
 	Compressor *comp;
@@ -20,7 +20,7 @@ public:
 	Solenoid *arm;
 	CANTalon *tal6;
 	CANTalon *tal5;
-	//DigitalInput *limit;
+	DigitalInput *limit;
 	Encoder *liftEnco;
 	AnalogPotentiometer *sPot;
 	SmartDashboard *dash;
@@ -40,15 +40,15 @@ public:
 		frTal = new CANTalon(2);
 		rrTal = new CANTalon(4);
 		drive = new RobotDrive(flTal, rlTal, frTal, rrTal);
-		//gy = new Gyro(0);
+		gy = new Gyro(0);
 		acc = new BuiltInAccelerometer();
 
 		comp = new Compressor(1);
-		sol = new Solenoid(1, 4);
-		arm = new Solenoid(1, 5);
+		sol = new Solenoid(1, 0);
+		arm = new Solenoid(1, 1);
 		tal6 = new CANTalon(6);
 		tal5 = new CANTalon(5);
-		//limit = new DigitalInput(0);
+		limit = new DigitalInput(0);
 		liftEnco = new Encoder(2, 3);
 		sPot = new AnalogPotentiometer(0, 1.0, 0.0);
 
@@ -61,7 +61,7 @@ public:
 		rrTal->SetFeedbackDevice(CANTalon::QuadEncoder);
 		frTal->SetSensorDirection(true);
 		rrTal->SetSensorDirection(true);
-		//gy->InitGyro();
+		gy->InitGyro();
 
 		dash->init();
 
@@ -77,7 +77,7 @@ public:
 		delete frTal;
 		delete rrTal;
 		delete drive;
-		//delete gy;
+		delete gy;
 		delete acc;
 
 		delete comp;
@@ -85,7 +85,7 @@ public:
 		delete arm;
 		delete tal6;
 		delete tal5;
-		//delete limit;
+		delete limit;
 		delete liftEnco;
 		delete sPot;
 
@@ -119,6 +119,8 @@ private:
 	void AutonomousInit()
 	{
 
+		float gyrAngle = gy->GetAngle();
+
 		flRead = 0;
 		rlRead = 0;
 		frRead = 0;
@@ -132,7 +134,12 @@ private:
 		sol->Set(false);
 		tal5->Set(0.0);
 		tal6->Set(0.0);
-		drive->MecanumDrive_Cartesian(0.0, 0.0, -0.5);
+		if(gyrAngle > -180.0){
+			drive->MecanumDrive_Cartesian(0.0, 0.0, -0.5);
+		}
+		else{
+			drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0);
+		}
 		Wait(1.0);
 		flRead = flTal->GetEncPosition();
 		rlRead = rlTal->GetEncPosition();
@@ -142,7 +149,7 @@ private:
 		dash->PutNumber("rlEncRaw", rlRead);
 		dash->PutNumber("frEncRaw", frRead);
 		dash->PutNumber("rrEncRaw", rrRead);
-		drive->MecanumDrive_Cartesian(0.0, -0.50, 0.0);
+		drive->MecanumDrive_Cartesian(0.0, -0.50, 0.0, gyrAngle);
 		Wait(2.5);
 		drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0);
 		sol->Set(true);
@@ -168,7 +175,7 @@ private:
 		arm->Set(false);
 		//bool jb1Hit = false;
 		//tal5->SetVoltageRampRate(2);
-		//dash->PutBoolean("Gyroscope On", true);
+		dash->PutBoolean("Gyroscope On", true);
 
 	}
 
@@ -180,9 +187,9 @@ private:
 		frRead = frTal->GetEncVel();
 		rrRead = rrTal->GetEncVel();
 
-		//float gyrAngle;
+		float gyrAngle;
 
-		/*if(dash->GetBoolean("Gyroscope On") == true){
+		if(dash->GetBoolean("Gyroscope On") == true){
 			gyrAngle = gy->GetAngle();
 		}
 
@@ -193,7 +200,7 @@ private:
 		else{
 			dash->PutBoolean("Gyroscope On", true);
 			gyrAngle = gy->GetAngle();
-		}*/
+		}
 
 		double roll = acc->GetX();
 		double pitch = acc->GetY();
@@ -247,29 +254,29 @@ private:
 
 		dash->PutNumber("Lift Rate", liftRate);
 
-		//dash->PutNumber("GyroAngle", gyrAngle);
+		dash->PutNumber("GyroAngle", gyrAngle);
 		dash->PutNumber("Roll", roll);
 		dash->PutNumber("Pitch", pitch);
 		dash->PutNumber("Yaw", yaw);
 
 		if((stickX > -0.5 && stickX < 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
-			drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0/*, gyrAngle*/);
+			drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0, gyrAngle);
 		}
 
 		else if((stickX > -0.5 && stickX < 0.5) && (stickY <= -0.5 || stickY >= 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
-			drive->MecanumDrive_Cartesian(0.0, sYExp, 0.0/*, gyrAngle*/);
+			drive->MecanumDrive_Cartesian(0.0, sYExp, 0.0, gyrAngle);
 		}
 
 		else if((stickX <= -0.5 || stickX >= 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
-			drive->MecanumDrive_Cartesian(sXExp, 0.0, 0.0/*, gyrAngle*/);
+			drive->MecanumDrive_Cartesian(sXExp, 0.0, 0.0, gyrAngle);
 		}
 
 		else if((stickX > -0.5 && stickX < 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ <= -0.25 && stickZ >= 0.25)){
-			drive->MecanumDrive_Cartesian(0.0, 0.0, sZExp/*, gyrAngle*/);
+			drive->MecanumDrive_Cartesian(0.0, 0.0, sZExp, gyrAngle);
 		}
 
 		else{
-			drive->MecanumDrive_Cartesian(sXExp, sYExp, sZExp/*, gyrAngle*/);
+			drive->MecanumDrive_Cartesian(sXExp, sYExp, sZExp, gyrAngle);
 		}
 
 		/*for(float x = 0.0; x<=1.0; x+=0.0001){
@@ -341,12 +348,12 @@ private:
 		float armSpeed = ((-stick->GetThrottle())/2) + 0.54;
 		dash->PutNumber("Throttle Value", armSpeed);
 
-		if(stick->GetRawButton(5) == jb5Hit && stick->GetRawButton(3) != jb3Hit /*&& limit->Get()*/) {
+		if(stick->GetRawButton(5) == jb5Hit && stick->GetRawButton(3) != jb3Hit && limit->Get()) {
 			sol->Set(true);
 			tal5->Set(-armSpeed);
 			tal6->Set(-armSpeed);
 		}
-		else if(stick->GetRawButton(3) != jb3Hit /*&& !limit->Get()*/ && stick->GetRawButton(5) == jb5Hit){
+		else if(stick->GetRawButton(3) != jb3Hit && !limit->Get() && stick->GetRawButton(5) == jb5Hit){
 			tal5->Set(0.0);
 			tal6->Set(0.0);
 			sol->Set(false);
