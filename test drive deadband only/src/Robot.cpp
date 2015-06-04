@@ -136,8 +136,11 @@ private:
 			sol->Set(false);
 			tal5->Set(0.0);
 			tal6->Set(0.0);
-			if(gyrAngle > 0 || gyrAngle < 0){
+			if(gyrAngle > 1){
 				drive->MecanumDrive_Cartesian(0.0, 0.0, -0.5);
+			}
+			else if(gyrAngle < 1){
+				drive->MecanumDrive_Cartesian(0.0, 0.0, 0.5);
 			}
 			else{
 				//Wait(1.0);
@@ -262,13 +265,13 @@ private:
 		double pitch = acc->GetY();
 		double yaw = acc->GetZ();
 
-		float stickX = stick->GetX();
-		float stickY = stick->GetY();
-		float stickZ = stick->GetZ();
+		float stickX = stick->GetRawAxis(0);
+		float stickY = stick->GetRawAxis(1);
+		float stickZ = stick->GetRawAxis(4);
 
-		float sXExp = pow(stickX, 5);
-		float sYExp = pow(stickY, 5);
-		float sZExp = (pow(stickZ, 3)/3);
+		float sXExp = pow(stickX, 3);
+		float sYExp = pow(stickY, 3);
+		float sZExp = (pow(stickZ, 3)/2);
 
 		float flCur = flTal->GetOutputCurrent();
 		float rlCur = rlTal->GetOutputCurrent();
@@ -315,19 +318,19 @@ private:
 		dash->PutNumber("Pitch", pitch);
 		dash->PutNumber("Yaw", yaw);
 
-		if((stickX > -0.5 && stickX < 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
+		if((stickX > -0.1 && stickX < 0.1) && (stickY > -0.1 && stickY < 0.1) && (stickZ > -0.1 && stickZ < 0.1)){
 			drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0);
 		}
 
-		else if((stickX > -0.5 && stickX < 0.5) && (stickY <= -0.5 || stickY >= 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
+		else if((stickX > -0.1 && stickX < 0.1) && (stickY <= -0.1 || stickY >= 0.1) && (stickZ > -0.1 && stickZ < 0.1)){
 			drive->MecanumDrive_Cartesian(0.0, sYExp, 0.0);
 		}
 
-		else if((stickX <= -0.5 || stickX >= 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ > -0.25 && stickZ < 0.25)){
+		else if((stickX <= -0.1 || stickX >= 0.1) && (stickY > -0.1 && stickY < 0.1) && (stickZ > -0.1 && stickZ < 0.1)){
 			drive->MecanumDrive_Cartesian(sXExp, 0.0, 0.0);
 		}
 
-		else if((stickX > -0.5 && stickX < 0.5) && (stickY > -0.5 && stickY < 0.5) && (stickZ <= -0.25 && stickZ >= 0.25)){
+		else if((stickX > -0.1 && stickX < 0.1) && (stickY > -0.1 && stickY < 0.1) && (stickZ <= -0.1 && stickZ >= 0.1)){
 			drive->MecanumDrive_Cartesian(0.0, 0.0, sZExp);
 		}
 
@@ -344,64 +347,21 @@ private:
 		}
 		*/
 
-		/*if(flCur>0.0){
-			dash->PutNumber("startTimeFl", time->Get());
-			time->Stop();
-		}
-
-		if(rlCur>0.0){
-			dash->PutNumber("startTimeRl", time2->Get());
-			time2->Stop();
-		}
-
-		if(frCur>0.0){
-			dash->PutNumber("startTimeFr", time3->Get());
-			time3->Stop();
-		}
-
-		if(rrCur>0.0){
-			dash->PutNumber("startTimeRr", time4->Get());
-			time4->Stop();
-		}*/
-
-		/*if(stick->GetRawButton(3)){
-			sol->Set(true);
-					tal5->Set(-0.25);
-					tal6->Set(-0.25);
-				}
-
-				else if(stick->GetRawButton(4)){
-					sol->Set(true);
-					tal5->Set(-0.03);
-					tal6->Set(-0.03);
-				}
-
-				else if(stick->GetRawButton(5)){
-					tal5->Set(0.0);
-					tal6->Set(0.0);
-					sol->Set(false);
-				}
-
-		if(stick->GetRawButton(9)){
-			jb9Hit = true;
-		}
-
-		if(stick->GetRawButton(10)){
-			jb10Hit = true;
-		}*/
-
-		if(stick->GetRawButton(2) /*&& jb1Hit == false*/){ // opening
+		if(stick->GetRawButton(5) /*&& jb1Hit == false*/){ // opening
 			arm->Set(false);
 			jb1Hit = true;
 		}
-		if(stick->GetRawButton(1) /*&& jb1Hit == true*/){ // closing
+		if(stick->GetRawButton(6) /*&& jb1Hit == true*/){ // closing
 			arm->Set(true);
 			jb1Hit = false;
 		}
 
 		dash->PutBoolean("Claw is Open", jb1Hit);
 
-		float armSpeed = ((-stick->GetThrottle())/2) + 0.54;
+		float rTriggerval = stick->GetRawAxis(3);
+		float lTriggerval = stick->GetRawAxis(2);
+
+		/*float armSpeed = ((-stick->GetThrottle())/2) + 0.54;
 		dash->PutNumber("Throttle Value", armSpeed);
 
 		if(stick->GetRawButton(5) == jb5Hit && stick->GetRawButton(3) != jb3Hit && sInch < 59) {
@@ -428,19 +388,33 @@ private:
 			tal5->Set(0.0);
 			tal6->Set(0.0);
 			sol->Set(false);
-		}
-
-		/*if(stick->GetRawButton(7) == jb7Hit) {
-			sol->Set(true);
-			tal5->Set(-0.5);
-			tal6->Set(-0.5);
-		}
-		else if(stick->GetRawButton(7) != jb7Hit && stick->GetRawButton(3) != jb3Hit && stick->GetRawButton(4) != jb4Hit){
-			sol->Set(false);
-			tal5->Set(0.0);
-			tal6->Set(0.0);
 		}*/
 
+		if(rTriggerval > 0.05 && lTriggerval <= 0.5 && sInch < 59) {
+			sol->Set(true);
+			tal5->Set(-rTriggerval);
+			tal6->Set(-rTriggerval);
+		}
+		else if(lTriggerval <= 0.5 && sInch >= 59 && rTriggerval > 0.05){
+			tal5->Set(0.0);
+			tal6->Set(0.0);
+			sol->Set(false);
+		}
+		else if(lTriggerval > 0.5 && rTriggerval <= 0.05){
+			sol->Set(true);
+			tal5->Set(0.0);
+			tal6->Set(0.0);
+		}
+		else if(rTriggerval <= 0.05 && lTriggerval <= 0.5){
+			tal5->Set(0.0);
+			tal6->Set(0.0);
+			sol->Set(false);
+		}
+		else if(rTriggerval > 0.05 && lTriggerval > 0.5){
+			tal5->Set(0.0);
+			tal6->Set(0.0);
+			sol->Set(false);
+		}
 
 		/*sp->Read(buff, 1);
 		std::string heybuff(buff);
@@ -454,12 +428,14 @@ private:
 
 		buffread3 = (int) buff[2];
 		dash->PutNumber("Converted3: ", buffread3);*/
+
 	}
 
 	void TestPeriodic()
 	{
 		lw->Run();
 	}
+
 };
 
 START_ROBOT_CLASS(Robot);
